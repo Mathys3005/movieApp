@@ -1,4 +1,6 @@
-const MovieCard = ({title, poster, rating}) => {
+import { Link } from "react-router";
+
+const MovieCard = ({id, title, poster, rating}) => {
     return (
         <div className="max-w-sm rounded overflow-hidden shadow-lg p-4 bg-white">
             <img className="w-full h-64 object-cover" src={poster} alt={title} />
@@ -7,9 +9,7 @@ const MovieCard = ({title, poster, rating}) => {
                 <p className="text-gray-700">Rating: {rating}/10</p>
             </div>
             <div className="mt-4">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                    Voir le détail
-                </button>
+                <Link to={`/movie/${id}`} className="px-4 py-2 bg-green-500 text-white rounded">Voir les détails</Link>
             </div>
         </div>
     );
