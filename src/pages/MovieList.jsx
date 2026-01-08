@@ -23,37 +23,60 @@ const MovieList = () =>{
     }, [filter, searchString])
 
     if (loading) {
-        return <div>Loading...</div>
+        return <div className="text-center text-xl mt-10">Chargement…</div>
     }
 
     return (
-        <div className="flex flex-wrap gap-4 justify-center p-4 bg-gray-100 min-h-screen">
-            <div className="flex gap-4 mb-4">
-                <button onClick={() => {setFilter("popular"); setSearchString("")}} className="px-4 py-2 bg-blue-500 text-white rounded">Populaire</button>
-                <button onClick={() => {setFilter("top_rated"); setSearchString("")}} className="px-4 py-2 bg-blue-500 text-white rounded">Les mieux notés</button>
-                <button onClick={() => {setFilter("upcoming"); setSearchString("")}} className="px-4 py-2 bg-blue-500 text-white rounded">Prochainement</button>
-                <button onClick={() => {setFilter("now_playing"); setSearchString("")}} className="px-4 py-2 bg-blue-500 text-white rounded">En salle</button>
+        <div className="bg-gray-100 min-h-screen px-6 py-8">
+            
+            <div className="flex flex-wrap justify-center gap-3 mb-6">
+                {[
+                    ["popular", "Populaire"],
+                    ["top_rated", "Les mieux notés"],
+                    ["upcoming", "Prochainement"],
+                    ["now_playing", "En salle"],
+                ].map(([value, label]) => (
+                    <button
+                        key={value}
+                        onClick={() => {
+                            setFilter(value)
+                            setSearchString("")
+                        }}
+                        className={`px-4 py-2 rounded-full text-sm font-medium transition ${
+                            filter === value
+                                ? "bg-blue-600 text-white"
+                                : "bg-white text-gray-700 hover:bg-blue-100"
+                        }`}
+                    >
+                        {label}
+                    </button>
+                ))}
             </div>
 
-            <div className="w-full mb-4">
+            <div className="max-w-xl mx-auto mb-8">
                 <input
                     type="text"
-                    placeholder="Rechercher un film..."
+                    placeholder="🔍 Rechercher un film..."
                     value={searchString}
                     onChange={(e) => setSearchString(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded"
+                    className="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
             </div>
-
-            {movies.map((movie) => (
-                <MovieCard
-                    key={movie.id}
-                    id={movie.id}
-                    title={movie.title}
-                    poster={movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : '/images/noImage.png'}
-                    rating={movie.vote_average}
-                />
-            ))}
+            
+            <div className="flex flex-wrap justify-center gap-6">
+                {movies.map(movie => (
+                    <MovieCard
+                        key={movie.id}
+                        id={movie.id}
+                        title={movie.title}
+                        poster={
+                            movie.poster_path
+                                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "/images/noImage.png"
+                        }
+                        rating={movie.vote_average}
+                    />
+                ))}
+            </div>
         </div>
     )
 }

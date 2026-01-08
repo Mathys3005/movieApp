@@ -2,14 +2,31 @@ import { Link } from "react-router";
 
 const MovieCard = ({id, title, poster, rating}) => {
     return (
-        <div className="max-w-sm rounded overflow-hidden shadow-lg p-4 bg-white">
-            <img className="w-full h-64 object-cover" src={poster} alt={title} />
-            <div className="mt-4">
-                <h2 className="text-xl font-bold mb-2">{title}</h2>
-                <p className="text-gray-700">Rating: {rating}/10</p>
+        <div className="w-72 bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            
+            <div className="aspect-2/3 bg-gray-200 relative">
+                <img
+                    src={poster}
+                    alt={title}
+                    className="w-full h-full object-contain"
+                />
+
+                <span className="absolute top-3 right-3 bg-black/80 text-white text-sm font-semibold px-3 py-1 rounded-full">
+                    ⭐ {rating.toFixed(1)}
+                </span>
             </div>
-            <div className="mt-4">
-                <Link to={`/movie/${id}`} className="px-4 py-2 bg-green-500 text-white rounded">Voir les détails</Link>
+
+            <div className="p-4 flex flex-col justify-between h-36">
+                <h2 className="text-lg font-bold text-gray-800 line-clamp-2">
+                    {title}
+                </h2>
+
+                <Link
+                    to={`/movie/${id}`}
+                    className="mt-4 inline-block text-center bg-green-500 hover:bg-green-600 text-white font-medium py-2 rounded-lg transition"
+                >
+                    Voir les détails
+                </Link>
             </div>
         </div>
     );
