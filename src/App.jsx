@@ -1,11 +1,13 @@
-import { useState } from 'react'
 import MovieList from './pages/MovieList.jsx'
+import MovieDetail from './pages/MovieDetail.jsx'
+import { Routes, Route } from 'react-router'
 
 function App() {
   return (
-    <>
-      <MovieList />
-    </>
+    <Routes>
+      <Route path="/" element={<MovieList />} />
+      <Route path="/movie/:id" element={<MovieDetail />} />
+    </Routes>
   )
 }
 
