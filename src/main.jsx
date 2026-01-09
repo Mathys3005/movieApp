@@ -4,12 +4,15 @@ import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from 'react-router'
 import Navbar from './components/Navbar.jsx'
+import WishlistProvider from './providers/WishlistProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <Navbar />
-      <App />
+      <WishlistProvider>
+        <Navbar />
+        <App />
+      </WishlistProvider>
     </BrowserRouter>
   </StrictMode>,
 )
