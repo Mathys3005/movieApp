@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import useDebounce from "../tools/debounce.jsx"
 import MovieCard from "../components/MovieCard.jsx"
 
 const MovieList = () =>{
@@ -6,21 +7,32 @@ const MovieList = () =>{
     const [loading, setLoading] = useState(true)
     const [filter, setFilter] = useState("popular")
     const [searchString, setSearchString] = useState("")
+    const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
+
+    const debouncedSearchString = useDebounce(searchString, 500)
 
     useEffect(() => {
-        let url = 'https://api.themoviedb.org/3/movie/' + filter + '?api_key=' + import.meta.env.VITE_API_KEY
+        let url = 'https://api.themoviedb.org/3/movie/' + filter + '?api_key=' + import.meta.env.VITE_API_KEY + '&page=' + page
 
-        if (searchString !== "" && searchString.length > 0) {
-            url = 'https://api.themoviedb.org/3/search/movie?api_key=' + import.meta.env.VITE_API_KEY + '&query=' + searchString
+        if (debouncedSearchString.trim() !== "") {
+            url = 'https://api.themoviedb.org/3/search/movie?api_key=' + import.meta.env.VITE_API_KEY + '&query=' + debouncedSearchString + '&page=' + page
         }
 
         fetch(url)
         .then((response) => response.json())
         .then((data) => {
             setMovies(data.results)
+            setTotalPages(data.total_pages)
             setLoading(false)
         })
-    }, [filter, searchString])
+    }, [filter, debouncedSearchString, page])
+
+    const filterChange = (newFilter) => {
+        setFilter(newFilter)
+        setSearchString("")
+        setPage(1)
+    }
 
     if (loading) {
         return <div className="text-center text-xl mt-10">Chargement…</div>
@@ -39,8 +51,7 @@ const MovieList = () =>{
                     <button
                         key={value}
                         onClick={() => {
-                            setFilter(value)
-                            setSearchString("")
+                            filterChange(value)
                         }}
                         className={`px-4 py-2 rounded-full text-sm font-medium transition ${
                             filter === value
@@ -76,6 +87,23 @@ const MovieList = () =>{
                         rating={movie.vote_average}
                     />
                 ))}
+            </div>
+            <div className="flex justify-center items-center mt-8 gap-4">
+                <button
+                    onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                    disabled={page === 1}
+                    className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+                >
+                    Précédent
+                </button>
+                <span className="text-gray-700">Page {page} sur {totalPages}</span>
+                <button
+                    onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+                    disabled={page === totalPages}
+                    className="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50"
+                >
+                    Suivant
+                </button>
             </div>
         </div>
     )
