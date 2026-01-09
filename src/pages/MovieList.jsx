@@ -13,10 +13,10 @@ const MovieList = () =>{
     const debouncedSearchString = useDebounce(searchString, 500)
 
     useEffect(() => {
-        let url = 'https://api.themoviedb.org/3/movie/' + filter + '?api_key=' + import.meta.env.VITE_API_KEY + '&page=' + page
+        let url = `https://api.themoviedb.org/3/movie/${filter}?api_key=${import.meta.env.VITE_API_KEY}&page=${page}&language=fr-FR`
 
         if (debouncedSearchString.trim() !== "") {
-            url = 'https://api.themoviedb.org/3/search/movie?api_key=' + import.meta.env.VITE_API_KEY + '&query=' + debouncedSearchString + '&page=' + page
+            url = `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_API_KEY}&query=${debouncedSearchString}&page=${page}&language=fr-FR`
         }
 
         fetch(url)
