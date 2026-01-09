@@ -1,12 +1,13 @@
 import { useParams } from "react-router"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import ActorList from "../components/ActorList.jsx"
+import { WishlistContext } from "../providers/WishlistProvider.jsx"
 
 const MovieDetail = () => {
     const { id } = useParams()
     const [movie, setMovie] = useState(null)
     const [loading, setLoading] = useState(true)
-
+    const { addToWishlist } = useContext(WishlistContext)
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}`)
             .then((response) => response.json())
@@ -55,12 +56,17 @@ const MovieDetail = () => {
                                 ))}
                             </div>
                         )}
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => addToWishlist(movie)}>
+                            Ajouter à la liste de souhaits
+                        </button>
+                        <div>
                     </div>
                 </div>
             </div>
 
             <ActorList movieId={id} />
         </div>
+    </div>
     )
 }
 
