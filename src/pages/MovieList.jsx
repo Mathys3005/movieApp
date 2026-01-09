@@ -69,7 +69,7 @@ const MovieList = () =>{
                     type="text"
                     placeholder="🔍 Rechercher un film..."
                     value={searchString}
-                    onChange={(e) => setSearchString(e.target.value)}
+                    onChange={(e) => {setSearchString(e.target.value); setPage(1)}}
                     className="w-full p-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
             </div>
@@ -84,7 +84,7 @@ const MovieList = () =>{
                             movie.poster_path
                                 ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : "/images/noImage.png"
                         }
-                        rating={movie.vote_average}
+                        rating={movie.vote_average ? movie.vote_average : 0}
                     />
                 ))}
             </div>
