@@ -2,6 +2,7 @@ import { useParams } from "react-router"
 import { useEffect, useState, useContext } from "react"
 import ActorList from "../components/ActorList.jsx"
 import { WishlistContext } from "../providers/WishlistProvider.jsx"
+import SimilarMovies from "../components/SimilarMovies.jsx"
 
 const MovieDetail = () => {
     const { id } = useParams()
@@ -63,9 +64,9 @@ const MovieDetail = () => {
                     </div>
                 </div>
             </div>
-
-            <ActorList movieId={id} />
         </div>
+        <ActorList movieId={id} />
+        <SimilarMovies movieId={id} />
     </div>
     )
 }
