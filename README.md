@@ -1,16 +1,55 @@
-# React + Vite
+# Movie App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Installation et Configuration
 
-Currently, two official plugins are available:
+### 1 - Cloner le projet
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+git clone https://github.com/Mathys3005/movieApp.git movie-app
+cd movie-app
+````
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2️ - Installer les dépendances
 
-## Expanding the ESLint configuration
+```bash
+npm install
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+
+---
+
+### 3 - Obtenir une clé TMDB
+
+1. Créez un compte sur [TMDB](https://www.themoviedb.org/).
+2. Allez dans **Settings → API** et créez une clé
+3. Copiez votre clé API.
+
+---
+
+### 4️ - Configurer la clé dans l’application
+
+1. À la racine du projet, copiez le fichier `example.env` :
+
+```bash
+cp example.env .env
+```
+
+2. Ouvrez `.env` et complétez `VITE_API_KEY=` avec votre clé TMDB :
+
+```
+VITE_API_KEY=VOTRE_CLE_API
+```
+
+---
+
+### 5️ - Lancer l’application
+
+```bash
+npm run dev
+
+```
+
+L’application sera disponible sur : le lien disponible en console 
+
